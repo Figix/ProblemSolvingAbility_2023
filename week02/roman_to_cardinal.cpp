@@ -1,18 +1,23 @@
 #include <iostream>
+#include <Windows.h>
+#include <thread>
 
 using namespace std;
 
 void translate_num2Rome(int num);
 int share_Rome(int cal_num, int devide_num);
 int translate_Rome2num(string str1);
+void thread_function();
 
 string str;
 
 int main(int argc, char* argv[]) {
     int num;
 
+    thread a(thread_function);
+
     while (true) {
-        cout << "1~3999 범위의 수를 입력해주시길 바랍니다. : " << endl;
+        cout << "1~3999 범위의 수를 입력해주시길 바랍니다. : ";
         cin >> num;
 
         if (cin.fail()) {
@@ -37,7 +42,7 @@ int main(int argc, char* argv[]) {
         cout << endl;
     }
 
-
+    a.join();
     return 0;
 }
 
@@ -129,6 +134,14 @@ int translate_Rome2num(string str1) {
         }
     }
     return result;
+}
+
+void thread_function() {
+    while (true) {
+        if (GetAsyncKeyState(VK_ESCAPE)) {
+            exit(0);
+        }
+    }
 }
 /*
 
