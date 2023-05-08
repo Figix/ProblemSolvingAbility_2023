@@ -9,8 +9,8 @@ int fileGenerator() {
 	fp = fopen("data.txt", "w");
 
 	// 파일에 데이터 쓰기
-	fprintf(fp, "나의 이번학기 점수는 %%d이고 성적은 %%c를 받았습니다.\n");
-	fprintf(fp, "나의 이번학기 점수는 91이고 성점은 A를 받았습니다.\n");
+	fprintf(fp, "내 이름은 %%s이고 이번학기 점수는 %%d9999점이고 성적은 %%c를 받았습니다.\n");
+	fprintf(fp, "내 이름은 멋진 이은석님이고  이번학기 점수는 989999점이고 성적은 A를 받았습니다.\n");
 
 	// 파일 닫기
 	fclose(fp);
