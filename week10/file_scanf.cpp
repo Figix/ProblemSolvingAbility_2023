@@ -90,11 +90,11 @@ int main() {
 					end_point = strstr(input, str_arr[i + 1]); 
 
 					length = end_point - start_point;
-
+					
 					strncpy(tmpstr, ptr, length);
 					tmpstr[length] = '\0';
 
-					printf(" 추출된 값 : %s\n", tmpstr);
+					printf("\t추출된 값 : %s", tmpstr);
 					tmplen = strlen(tmpstr);
 
 					if (j == 0) {
@@ -132,13 +132,13 @@ int main() {
 	fp = fopen("DB.txt", "w");
 
 	for (int a = 0; a < formatCount[0]; a++) {
-		fprintf(fp,"\tint : %d\n", intARR[a]);
+		fprintf(fp,"int  \t: %d\n", intARR[a]);
 	}
 	for (int a = 0; a < formatCount[1]; a++) {
-		fprintf(fp, "\tstring : %s\n", strARR[a]);
+		fprintf(fp, "string\t: %s\n", strARR[a]);
 	}
 	for (int a = 0; a < formatCount[2]; a++) {
-		fprintf(fp, "\tchar : %c\n", charARR[a]);
+		fprintf(fp, "char\t: %c\n", charARR[a]);
 	}
 
 	// 파일 닫기
