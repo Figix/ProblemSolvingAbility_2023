@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
+#define INTMAX 2147483647;
 int main() {
 	char Format[255];
 	char input[255];
@@ -33,6 +33,16 @@ int main() {
 	printf("%%d count : %d\n", formatCount[0]);
 	printf("%%s count : %d\n", formatCount[1]);
 	printf("%%c count : %d\n", formatCount[2]);
+	int* intARR = (int*)malloc(sizeof(int*) * formatCount[0]);
+	char** strARR = (char**)malloc(sizeof(char*) * formatCount[1]);
+	for (int i = 0; i < formatCount[1]; i++) {
+		strARR[i] = (char*)malloc(sizeof(char) * 100); // 문자열을 저장할 메모리 공간 할당
+	}
+	char* charARR = (char*)malloc(sizeof(char*) * formatCount[2]);
+
+	for (int i = 0; i < formatCount[0]; i++) {
+		intARR[i] = INTMAX;
+	}
 
 	int size = formatCount[0] + formatCount[1] + formatCount[2];
 	size = 1 + size * 2;
@@ -61,9 +71,13 @@ int main() {
 	str_arr[count][len] = '\0';
 	
 	int tmplen;
+	char tmpstr[100];
 	ptr = input;
+	char* start_point;
+	char* end_point;
+	int length;
 	for (int i = 0 ; i < size; i++) {
-		printf("문자열의 길이 : %d\t문자열 배열 인덱스 %d: %s\n",strlen(str_arr[i]), i, str_arr[i]);
+		printf("문자열의 길이 : %d\t문자열 배열 인덱스 %d: %s",strlen(str_arr[i]), i, str_arr[i]);
 		tmplen = strlen(str_arr[i]);
 		/** 1.%체크  */
 		if (strstr(str_arr[i], "%")) {
@@ -72,16 +86,63 @@ int main() {
 		/** j의 값 0:int, 1:string, 2:char */
 			for (int j = 0; j < 3; j++) {
 				if (strstr(str_arr[i], checkList[j])) {
-					//char* input_ptr = 
-					int length; 
+					start_point = ptr;
+					end_point = strstr(input, str_arr[i + 1]); 
+
+					length = end_point - start_point;
+
+					strncpy(tmpstr, ptr, length);
+					tmpstr[length] = '\0';
+
+					printf(" 추출된 값 : %s\n", tmpstr);
+					tmplen = strlen(tmpstr);
+
+					if (j == 0) {
+						for (int a = 0; a < formatCount[0]; a++) {
+							if (intARR[a] == 2147483647) {
+								intARR[a] = atoi(tmpstr);
+							}
+						}
+					}
+					else if (j == 1) {
+						for (int a = 0; a < formatCount[1]; a++) {
+							strcpy(strARR[a], tmpstr);
+						}
+					}
+					else if (j == 2) {
+						for (int a = 0; a < formatCount[2]; a++) {
+							charARR[a] = tmpstr[0];
+						}
+					}
+
 
 					break;
 				}
 			}
 		}
+		printf("\n");
+		ptr = ptr + tmplen;
 	}
 
+	printf("\nDB.txt파일에 분리해서 저장 완료\n");
 
+	FILE* fp;
+
+	// 파일 열기
+	fp = fopen("DB.txt", "w");
+
+	for (int a = 0; a < formatCount[0]; a++) {
+		fprintf(fp,"\tint : %d\n", intARR[a]);
+	}
+	for (int a = 0; a < formatCount[1]; a++) {
+		fprintf(fp, "\tstring : %s\n", strARR[a]);
+	}
+	for (int a = 0; a < formatCount[2]; a++) {
+		fprintf(fp, "\tchar : %c\n", charARR[a]);
+	}
+
+	// 파일 닫기
+	fclose(fp);
 
 	return 0;
 }
