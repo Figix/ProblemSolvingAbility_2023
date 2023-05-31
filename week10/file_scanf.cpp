@@ -5,20 +5,29 @@
 #include <string.h>
 #include <stdlib.h>
 #define INTMAX 2147483647;
+
+struct Node {
+	char text[100];
+	int length;
+};
+
 int main() {
-	char Format[255];
-	char input[255];
+	Node Format[255];
+	Node input[255];
 
 	fileGenerator();
-	fileReader(Format, input, 255);
+	fileReader(Format->text, input->text, 255);
 
 	printf("파일에서 읽은 텍스트를 확인합니다.\n");
-	printf("Format : %s\n", Format);
-	printf("Input  : %s\n", input);
+	printf("Format : %s\n", Format->text);
+	printf("Input  : %s\n", input->text);
+
+	Format->length = strlen(Format->text);
+	input->length = strlen(input->text);
 
 	char checkList[3][3] = { "%d","%s","%c" };
 	int formatCount[3] = { 0 };
-	char* ptr = Format;
+	char* ptr = Format->text;
 	int count = 0;
 	for (int i = 0; i < 3; i++) {
 		while (ptr = strstr(ptr, checkList[i])) { // 찾는 문자열이 발견될 때마다
@@ -27,7 +36,7 @@ int main() {
 		}
 		formatCount[i] = count;
 		count = 0;
-		ptr = Format;
+		ptr = Format->text;
 	}
 	printf("--------------------------------------\n");
 	printf("%%d count : %d\n", formatCount[0]);
@@ -53,26 +62,26 @@ int main() {
 
 	int index = 0;
 	while (ptr = strstr(ptr, "%")) { // 찾는 문자열이 발견될 때마다
-		strncpy(str_arr[count++], &Format[index], ptr - Format - index);	// 찾은 곳 위치 바로 전 위치까지 얻기
-		str_arr[count - 1][ptr - Format - index] = '\0';
+		strncpy(str_arr[count++], &Format->text[index], ptr - Format->text - index);	// 찾은 곳 위치 바로 전 위치까지 얻기
+		str_arr[count - 1][ptr - Format->text - index] = '\0';
 		//주석된 곳 처리하면 문자열 널문자 처리안되어서 오류생김
 
-		index = ptr - Format;
+		index = ptr - Format->text;
 
-		strncpy(str_arr[count++], &Format[index], 2);
+		strncpy(str_arr[count++], &Format->text[index], 2);
 		str_arr[count - 1][2] = '\0';
 
 		index = index + 2;
 		ptr = ptr + 2; // 포인터를 이동시켜서 중복 검색을 방지합니다.
 	}
-	int len = strlen(Format) - index;
+	int len = Format->length - index;
 
-	strncpy(str_arr[count], &Format[index], len);
+	strncpy(str_arr[count], &Format->text[index], len);
 	str_arr[count][len] = '\0';
 	
 	int tmplen;
 	char tmpstr[100];
-	ptr = input;
+	ptr = input->text;
 	char* start_point;
 	char* end_point;
 	int length;
@@ -87,7 +96,7 @@ int main() {
 			for (int j = 0; j < 3; j++) {
 				if (strstr(str_arr[i], checkList[j])) {
 					start_point = ptr;
-					end_point = strstr(input, str_arr[i + 1]); 
+					end_point = strstr(input->text, str_arr[i + 1]); 
 
 					length = end_point - start_point;
 					
