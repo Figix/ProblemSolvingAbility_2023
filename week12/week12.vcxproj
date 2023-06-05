@@ -146,6 +146,7 @@
     <ClInclude Include="GameManager.hpp" />
     <ClInclude Include="Object.hpp" />
     <ClInclude Include="Scene.hpp" />
+    <ClInclude Include="texturemappin.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
