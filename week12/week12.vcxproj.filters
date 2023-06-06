@@ -39,4 +39,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="GameSTART_1.bmp">
+      <Filter>헤더 파일</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

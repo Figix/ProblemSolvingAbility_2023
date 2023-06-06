@@ -29,7 +29,7 @@ namespace RunGame {
 		chrono::system_clock::time_point startRenderTimePoint;
 		chrono::duration<double> renderDuration;
 		int sleeptime;
-		SceneManager* sm;
+		SceneManager* sm = new SceneManager();;
 	public:
 		GameLoop() {}
 		~GameLoop() {}
@@ -46,8 +46,18 @@ namespace RunGame {
 			if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 				glfwSetWindowShouldClose(window, GL_TRUE);
 
-			if (key == GLFW_KEY_SPACE && action == GLFW_PRESS) {k_Space = true;}
-			else {k_Space = false;}
+			if (key == GLFW_KEY_SPACE)
+			{
+				if (action == GLFW_PRESS && !isSpacePressed)
+				{
+					isSpacePressed = true; // 'E' 키가 눌렸으므로 상태 변수를 true로 설정합니다.
+				}
+				else if (action == GLFW_RELEASE)
+				{
+					isSpacePressed = false; // 'E' 키가 떼어졌으므로 상태 변수를 false로 설정합니다.
+				}
+			}
+
 
 			if (key == GLFW_KEY_ENTER && action == GLFW_PRESS) { k_Enter = true; }
 			else { k_Enter = false; }
@@ -101,16 +111,14 @@ namespace RunGame {
 			//지정한 윈도우 창 기준으로 그리기 위한 메소드
 			glfwSetKeyCallback(window, key_callback);
 			//key입력 이벤트 받는 메소드
-
+			initialize_texture();
 			/*-----------------------------------------------------------------------------------------------------------*/
 			//이 곳에서 텍스쳐 매핑할 것들 처리하기
 			/*init_texture_GameStart();
 			init_texture_GameOver();*/
-			initialize_texture();
+			//initialize_texture();
 			/*-----------------------------------------------------------------------------------------------------------*/
 
-			//게임 상대 관리에서 시작을 정리하는 단계
-			sm = new SceneManager();
 		}
 		void Update(GLFWwindow* window) {
 			//게임 스테이트 관리 및 연산 처리
@@ -145,15 +153,15 @@ namespace RunGame {
 
 			if (sm->GameState == GameStart) {
 				sm->GameStart_Render();
-				cout << "0렌더" << endl;
+				//cout << "0렌더" << endl;
 			}
 			else if (sm->GameState == inGame) {
 				sm->inGame_Render();
-				cout << "1렌더" << endl;
+				//cout << "1렌더" << endl;
 			}
 			else if (sm->GameState == GameOver) {
 				sm->GameOver_Render();
-				cout << "2렌더" << endl;
+				//cout << "2렌더" << endl;
 			}
 			glfwSwapBuffers(window);
 			//렌더링이 오래걸릴 경우 다 못칠하니 미리 칠해두고 그것을 현재있는것과 바꿈
