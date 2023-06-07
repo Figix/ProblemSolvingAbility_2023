@@ -1,6 +1,10 @@
 #pragma once
 #pragma comment(lib, "opengl32.lib")
 #include <GLFW/glfw3.h>
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
 
 #define SR 16.0f/9.0f //ScreenRatio È­¸é ºñ 16:9
 
@@ -46,7 +50,7 @@ namespace RunGame {
 
 		void jump() { 
 			if (jumpforce <= 0.05f) {
-				jumpforce += 0.27f;
+				jumpforce = 0.27f;
 			}
 		}
 
@@ -60,6 +64,14 @@ namespace RunGame {
 			}
 			else if (y >= 0.77)
 				y = 0.77;
+		}
+
+		void set(float X, float Y, float SIZE, float RATIO) {
+			x = X;
+			y = Y;
+			size = SIZE;
+			ratio = RATIO * SR;
+			jumpforce = 0;
 		}
 	};
 
@@ -117,6 +129,14 @@ namespace RunGame {
 				spd = -0.1f;
 			}
 		}
+
+		void set(float X, float Y, float SIZE, float RATIO) {
+			x = X;
+			y = Y;
+			size = SIZE;
+			ratio = RATIO * SR;
+			spd = -0.01;
+		}
 	};
 
 	class Block {
@@ -152,13 +172,13 @@ namespace RunGame {
 
 		void Draw() {
 			glBegin(GL_QUADS);
-			glColor4f(0.0f, 1.0f, 1.0f, 1.0f);
+			glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
 			glVertex2f(x - (size / 2), y - (size * ratio / 2));
-			glColor4f(0.0f, 0.75f, 0.75f, 1.0f);
+			glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
 			glVertex2f(x - (size / 2), y + (size * ratio / 2));
-			glColor4f(0.0f, 0.5f, 0.5f, 1.0f);
+			glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
 			glVertex2f(x + (size / 2), y + (size * ratio / 2));
-			glColor4f(1.0f, 0.25f, 0.25f, 1.0f);
+			glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
 			glVertex2f(x + (size / 2), y - (size * ratio / 2));
 			glEnd();
 		}
@@ -170,6 +190,12 @@ namespace RunGame {
 					x = 1.0f + (size / 2);
 					isusing = false;
 				}
+				if (y <= -(1.0f - (size * ratio / 2))) {
+					y = y - spd;
+				} 
+				else if (y>= (1.0f - (size * ratio / 2))) {
+					y = y + spd;
+				}
 			}
 		}
 
@@ -178,6 +204,34 @@ namespace RunGame {
 			if (spd <= -0.05f) {
 				spd = -0.1f;
 			}
+		}
+
+		void setblock() {
+			isusing = true;
+			spd = -0.01;
+			srand((unsigned int)time(NULL));
+			float sign = rand() % 2;
+
+			size = 0.1;
+			ratio = rand() % 5 + 5;
+
+			x = 1.0f+(size/2);
+			
+			if (sign == 0) {
+				y = -(1.0f + (size * ratio / 2));
+			}
+			else if (sign == 1) {
+				y = (1.0f + (size * ratio / 2));
+			}
+		}
+
+		void clear() {
+			size = 0.05f;
+			ratio = 5.0f * SR;
+			x = 1.0f + (size / 2);
+			y = -1.0f + (size * ratio / 2);
+			isusing = false;
+			spd = -0.01;
 		}
 	};
 
@@ -235,6 +289,13 @@ namespace RunGame {
 				spd = -0.02f;
 			}
 		}
+		void set(float X, float Y, float SIZE, float RATIO) {
+			x = X;
+			y = Y;
+			size = SIZE;
+			ratio = RATIO * SR;
+			spd = -0.01;
+		}
 	};
 
 	class Sun {
@@ -290,6 +351,14 @@ namespace RunGame {
 			if (spd <= -0.0015f) {
 				spd = -0.0015f;
 			}
+		}
+
+		void set(float X, float Y, float SIZE, float RATIO) {
+			x = X;
+			y = Y;
+			size = SIZE;
+			ratio = RATIO * SR;
+			spd = -0.001;
 		}
 	};
 }

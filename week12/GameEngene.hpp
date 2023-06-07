@@ -50,18 +50,25 @@ namespace RunGame {
 			{
 				if (action == GLFW_PRESS && !isSpacePressed)
 				{
-					isSpacePressed = true; // 'E' 키가 눌렸으므로 상태 변수를 true로 설정합니다.
+					isSpacePressed = true; // 'Space' 키가 눌렸으므로 상태 변수를 true로 설정합니다.
 				}
 				else if (action == GLFW_RELEASE)
 				{
-					isSpacePressed = false; // 'E' 키가 떼어졌으므로 상태 변수를 false로 설정합니다.
+					isSpacePressed = false; // 'Space' 키가 떼어졌으므로 상태 변수를 false로 설정합니다.
+				}
+			}
+			if (key == GLFW_KEY_ENTER)
+			{
+				if (action == GLFW_PRESS && !isSpacePressed)
+				{
+					isEnterPressed = true; // 'Space' 키가 눌렸으므로 상태 변수를 true로 설정합니다.
+				}
+				else if (action == GLFW_RELEASE)
+				{
+					isEnterPressed = false; // 'Space' 키가 떼어졌으므로 상태 변수를 false로 설정합니다.
 				}
 			}
 
-
-			if (key == GLFW_KEY_ENTER && action == GLFW_PRESS) { k_Enter = true; }
-			else { k_Enter = false; }
-			
 			if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS) { k_Rarrow = true; }
 			else { k_Rarrow = false; }
 			
@@ -125,15 +132,12 @@ namespace RunGame {
 			startRenderTimePoint = chrono::system_clock::now();
 			if (sm->GameState == GameStart) {
 				sm->GameStart_Update();
-				cout << "0업데이트" << endl;
 			}
 			else if(sm->GameState == inGame) {
 				sm->inGame_Update();
-				cout << "1업데이트" << endl;
 			}
 			else if (sm->GameState == GameOver) {
 				sm->GameOver_Update();
-				cout << "2업데이트" << endl;
 			}
 		}
 		void Render(GLFWwindow* window) {
