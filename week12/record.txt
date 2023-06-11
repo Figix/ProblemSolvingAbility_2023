@@ -19,3 +19,6 @@
 2023년 06월 07일 22시 49분 05초/ score : 130/ user_number : 6135
 2023년 06월 07일 22시 49분 10초/ score : 30/ user_number : 6151
 2023년 06월 07일 22시 49분 19초/ score : 40/ user_number : 6181
+2023년 06월 11일 20시 31분 16초/ score : 70/ user_number : 6372
+2023년 06월 11일 20시 31분 20초/ score : 30/ user_number : 6385
+2023년 06월 11일 20시 35분 33초/ score : 40/ user_number : 7211

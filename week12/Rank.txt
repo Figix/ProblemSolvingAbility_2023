@@ -6,6 +6,7 @@
 2023년 06월 07일 22시 47분 41초/ score : 90/ user_number : 5861
 2023년 06월 07일 21시 54분 14초/ score : 80/ user_number : 8156
 2023년 06월 07일 22시 48분 10초/ score : 70/ user_number : 5955
+2023년 06월 11일 20시 31분 16초/ score : 70/ user_number : 6372
 2023년 06월 07일 22시 35분 08초/ score : 50/ user_number : 3402
 2023년 06월 07일 22시 04분 12초/ score : 40/ user_number : 109
 2023년 06월 07일 22시 25분 01초/ score : 40/ user_number : 1420
@@ -13,9 +14,11 @@
 2023년 06월 07일 22시 42분 51초/ score : 40/ user_number : 4914
 2023년 06월 07일 22시 48분 26초/ score : 40/ user_number : 6008
 2023년 06월 07일 22시 49분 19초/ score : 40/ user_number : 6181
+2023년 06월 11일 20시 35분 33초/ score : 40/ user_number : 7211
 2023년 06월 07일 21시 53분 52초/ score : 30/ user_number : 8084
 2023년 06월 07일 21시 54분 02초/ score : 30/ user_number : 8117
 2023년 06월 07일 22시 02분 25초/ score : 30/ user_number : 9759
 2023년 06월 07일 22시 14분 53초/ score : 30/ user_number : 2202
 2023년 06월 07일 22시 16분 59초/ score : 30/ user_number : 2614
 2023년 06월 07일 22시 49분 10초/ score : 30/ user_number : 6151
+2023년 06월 11일 20시 31분 20초/ score : 30/ user_number : 6385

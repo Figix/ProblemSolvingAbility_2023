@@ -35,8 +35,16 @@
     <ClInclude Include="texturemappin.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Users\1202h\Downloads\어몽 %283%29\GameStart.png">
+      <Filter>헤더 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>
