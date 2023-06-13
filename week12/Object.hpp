@@ -4,17 +4,29 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-
+#include "texturemappin.hpp"
 
 #define SR 16.0f/9.0f //ScreenRatio 화면 비 16:9
 
 namespace RunGame {
-	class Player {
+	GLfloat AmongtextureCoords[] = {
+	0.0f, 0.0f,                       // 왼쪽 아래
+	136.0f / 2000.0f, 0.0f,           // 오른쪽 아래
+	136.0f / 2000.0f, 136.0f / 2000.0f, // 오른쪽 위
+	0.0f, 136.0f / 2000.0f             // 왼쪽 위
+	};
+
+	class object {
+		public:
+			float x, y;
+	};
+
+
+	class Player : public object{
 	private:
 		float gravityforce=0.05;
 		float jumpforce=0;
 	public:
-		float x, y;
 		float size;
 		float ratio;
 
@@ -38,13 +50,19 @@ namespace RunGame {
 
 		}
 
-		void Draw() {
+		void Draw(int drawindex) {
 			glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, textures[drawindex]);
 			glBegin(GL_QUADS);
-				glVertex2f(x - (size / 2), y - (size * ratio / 2));
-				glVertex2f(x - (size / 2), y + (size * ratio / 2));
-				glVertex2f(x + (size / 2), y + (size * ratio / 2));
-				glVertex2f(x + (size / 2), y - (size * ratio / 2));
+			glTexCoord2f(0.0f, 0.0f);
+			glVertex2f(x - (size / 2), y - (size * ratio / 2));
+			glTexCoord2f(0.0f, 1.0f);
+			glVertex2f(x - (size / 2), y + (size * ratio / 2));
+			glTexCoord2f(1.0f, 1.0f);
+			glVertex2f(x + (size / 2), y + (size * ratio / 2));
+			glTexCoord2f(1.0f, 0.0f);
+			glVertex2f(x + (size / 2), y - (size * ratio / 2));
 			glEnd();
 		}
 
@@ -75,11 +93,10 @@ namespace RunGame {
 		}
 	};
 
-	class Ground {
+	class Ground : public object {
 	private:
 		float spd = -0.01;
 	public:
-		float x, y;
 		float size;
 		float ratio;
 
@@ -139,11 +156,10 @@ namespace RunGame {
 		}
 	};
 
-	class Block {
+	class Block : public object {
 	private:
 		float spd=-0.01;
 	public:
-		float x, y;
 		float size;
 		float ratio;
 		bool isusing;
@@ -235,11 +251,10 @@ namespace RunGame {
 		}
 	};
 
-	class Cloud {
+	class Cloud : public object {
 	private:
 		float spd = -0.01;
 	public:
-		float x, y;
 		float size;
 		float ratio;
 
@@ -298,11 +313,10 @@ namespace RunGame {
 		}
 	};
 
-	class Sun {
+	class Sun : public object {
 	private:
 		float spd = -0.001;
 	public:
-		float x, y;
 		float size;
 		float ratio;
 

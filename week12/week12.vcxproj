@@ -143,7 +143,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngene.hpp" />
-    <ClInclude Include="GameManager.hpp" />
     <ClInclude Include="Object.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="stb_image.h" />
@@ -154,6 +153,11 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Users\1202h\Downloads\어몽 %283%29\GameStart.png" />
+    <Image Include="s1Among.png" />
+    <Image Include="s2Among.png" />
+    <Image Include="s3Among.png" />
+    <Image Include="s4Among.png" />
+    <Image Include="s5Among.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

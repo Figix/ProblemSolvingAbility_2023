@@ -24,12 +24,7 @@ using namespace std;
 
 namespace RunGame {
 	static bool isSpacePressed;
-	static bool k_Space;
 	static bool isEnterPressed;
-	static bool k_Uarrow;
-	static bool k_Rarrow;
-	static bool k_Darrow;
-	static bool k_Larrow;
 
 	enum GameState {
 		GameStart,
@@ -45,6 +40,8 @@ namespace RunGame {
 		bool pressed_GameStart;
 		bool isSTOP;
 		int score;
+		int drawindex;
+		int drawcounter;
 
 		Player *player = new Player();
 		Ground* ground1 = new Ground();
@@ -81,6 +78,7 @@ namespace RunGame {
 			}
 		}
 		void GameStart_Render() {
+			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, textures[0]);
 			glBegin(GL_QUADS);
 			glTexCoord2f(0.0f, 0.0f); glVertex2f(-1.0f, -1.0f);
@@ -106,6 +104,8 @@ namespace RunGame {
 			for (int i = 0; i < 3; i++) {
 				block[i]->clear();
 			}
+
+			drawindex = 3;
 
 			block[0]->setblock();
 			framecount = 0;
@@ -147,6 +147,12 @@ namespace RunGame {
 					sun->speedup();
 					score += 10;
 				}
+				if (framecount % 5 == 4) {
+					drawindex++;
+					if (drawindex == 7) {
+						drawindex = 3;
+					}
+				}
 				ground1->move();
 				ground2->move();
 				cloud1->move();
@@ -180,7 +186,7 @@ namespace RunGame {
 				}
 			}
 
-			player->Draw();
+			player->Draw(drawindex);
 		}
 
 		void GameOver_init() {
@@ -202,18 +208,13 @@ namespace RunGame {
 		}
 		void GameOver_Render() {
 			glColor4f(0.5, 0.5, 0.5, 1);
-			//glEnable(GL_TEXTURE_2D);
-			//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-			//glBindTexture(GL_TEXTURE_2D, textGameStart);
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, textures[1]);
 			glBegin(GL_QUADS);
-			//glTexCoord2f(0.0, 0.0); 
-			glVertex3f(-1.0, -1.0, 0);
-			//glTexCoord2f(1.0, 0.0); 
-			glVertex3f(1.0, -1.0, 0);
-			//glTexCoord2f(1.0, 1.0);
-			glVertex3f(1.0, 1.0, 0);
-			//glTexCoord2f(0.0, 1.0); 
-			glVertex3f(-1.0, 1.0, 0);
+			glTexCoord2f(0.0f, 0.0f); glVertex2f(-1.0f, -1.0f);
+			glTexCoord2f(1.0f, 0.0f); glVertex2f(1.0f, -1.0f);
+			glTexCoord2f(1.0f, 1.0f); glVertex2f(1.0f, 1.0f);
+			glTexCoord2f(0.0f, 1.0f); glVertex2f(-1.0f, 1.0f);
 			glEnd();
 		}
 

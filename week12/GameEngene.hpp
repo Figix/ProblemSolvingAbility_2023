@@ -1,5 +1,6 @@
 #pragma once
 #pragma comment(lib, "opengl32.lib")
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <string>
@@ -69,18 +70,6 @@ namespace RunGame {
 				}
 			}
 
-			if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS) { k_Rarrow = true; }
-			else { k_Rarrow = false; }
-			
-			if (key == GLFW_KEY_UP && action == GLFW_PRESS) { k_Uarrow = true; }
-			else { k_Uarrow = false; }
-			
-			if (key == GLFW_KEY_LEFT && action == GLFW_PRESS) { k_Larrow = true; }
-			else { k_Larrow = false; }
-
-			if (key == GLFW_KEY_DOWN && action == GLFW_PRESS) { k_Darrow = true; }
-			else { k_Darrow = false; }
-
 			//아래는 예시용으로 작성함
 			/*if (key == GLFW_KEY_S && action == GLFW_PRESS) { pressS = true; }
 			else { pressS = false; }*/
@@ -118,12 +107,29 @@ namespace RunGame {
 			//지정한 윈도우 창 기준으로 그리기 위한 메소드
 			glfwSetKeyCallback(window, key_callback);
 			//key입력 이벤트 받는 메소드
-			initialize_texture();
+
+			// GLEW 초기화
+			GLenum err = glewInit();
+			if (err != GLEW_OK) {
+				// 초기화 실패 처리
+				glfwTerminate();
+				return ;
+			}
+
 			/*-----------------------------------------------------------------------------------------------------------*/
 			//이 곳에서 텍스쳐 매핑할 것들 처리하기
-			/*init_texture_GameStart();
-			init_texture_GameOver();*/
-			//initialize_texture();
+			initialize_texture();
+			for (int i = 0; i < 7; i++) {
+				if (textures[i] == 0) {
+					// Apply the texture mapping
+					cout << i << "번 로드 안됨" << endl;
+					// ...
+				}
+			}
+			int major, minor, revision;
+			glfwGetVersion(&major, &minor, &revision);
+			std::cout << "OpenGL Version: " << major << "." << minor << "." << revision << std::endl;
+
 			/*-----------------------------------------------------------------------------------------------------------*/
 
 		}

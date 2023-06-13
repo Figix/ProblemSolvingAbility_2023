@@ -23,9 +23,6 @@
     <ClInclude Include="GameEngene.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.hpp">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Object.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -44,6 +41,21 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Users\1202h\Downloads\어몽 %283%29\GameStart.png">
+      <Filter>헤더 파일</Filter>
+    </Image>
+    <Image Include="s1Among.png">
+      <Filter>헤더 파일</Filter>
+    </Image>
+    <Image Include="s2Among.png">
+      <Filter>헤더 파일</Filter>
+    </Image>
+    <Image Include="s3Among.png">
+      <Filter>헤더 파일</Filter>
+    </Image>
+    <Image Include="s4Among.png">
+      <Filter>헤더 파일</Filter>
+    </Image>
+    <Image Include="s5Among.png">
       <Filter>헤더 파일</Filter>
     </Image>
   </ItemGroup>
