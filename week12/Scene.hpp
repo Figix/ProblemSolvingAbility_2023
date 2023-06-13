@@ -147,11 +147,8 @@ namespace RunGame {
 					sun->speedup();
 					score += 10;
 				}
-				if (framecount % 5 == 4) {
-					drawindex++;
-					if (drawindex == 7) {
-						drawindex = 3;
-					}
+				if (framecount % 4 == 3) {
+					player->convertDraw();
 				}
 				ground1->move();
 				ground2->move();
@@ -186,7 +183,7 @@ namespace RunGame {
 				}
 			}
 
-			player->Draw(drawindex);
+			player->Draw();
 		}
 
 		void GameOver_init() {
