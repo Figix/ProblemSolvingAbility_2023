@@ -11,7 +11,16 @@
 namespace RunGame {
 	class object {
 		public:
-			float x, y;
+			float x, y, size, ratio, objectType;
+			enum ObjectType {
+				PLAYER,
+				GROUND,
+				BLOCK,
+				CLOUD,
+				SUN
+			};
+			virtual void Draw() {}
+			virtual void move() {}
 	};
 
 
@@ -21,16 +30,14 @@ namespace RunGame {
 		float jumpforce=0;
 		int drawindex=3;
 	public:
-		float size;
-		float ratio;
-
 		//-0.8, -0.8, 0.2, 1.0
 
-		Player() {
+		Player() : object() {
 			x = -0.8f;
 			y = -0.8f;
 			size = 0.2f;
 			ratio = 1.0f;
+			objectType = PLAYER;
 		}
 
 		Player(float X, float Y, float SIZE, float RATIO) {
@@ -44,7 +51,7 @@ namespace RunGame {
 
 		}
 
-		void Draw() {
+		void Draw() override{
 			glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, textures[drawindex]);
@@ -85,7 +92,7 @@ namespace RunGame {
 				y = 0.77;
 		}
 
-		void set(float X, float Y, float SIZE, float RATIO) {
+		void set(float X, float Y, float SIZE, float RATIO)  {
 			x = X;
 			y = Y;
 			size = SIZE;
@@ -99,16 +106,15 @@ namespace RunGame {
 	private:
 		float spd = -0.01;
 	public:
-		float size;
-		float ratio;
 
 		//-0.8, -0.8, 0.2, 1.0
 
-		Ground() {
+		Ground() : object() {
 			x = -0.8f;
 			y = -0.8f;
 			size = 0.2f;
 			ratio = 1.0f;
+			objectType = GROUND;
 		}
 
 		Ground(float X, float Y, float SIZE, float RATIO) {
@@ -122,7 +128,7 @@ namespace RunGame {
 
 		}
 
-		void Draw() {
+		void Draw() override {
 			glBegin(GL_QUADS);
 			glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
 			glVertex2f(x - (size / 2), y - (size * ratio / 2));
@@ -135,7 +141,7 @@ namespace RunGame {
 			glEnd();
 		}
 
-		void move() {
+		void move() override{
 			x = x + spd;
 			if (x <= -2.0f) {
 				x = 2.0f;
@@ -162,18 +168,17 @@ namespace RunGame {
 	private:
 		float spd=-0.01;
 	public:
-		float size;
-		float ratio;
 		bool isusing;
 
 		//-0.8, -0.8, 0.2, 1.0
 
-		Block() {
+		Block() : object() {
 			size = 0.05f;
 			ratio = 5.0f*SR;
 			x = 1.0f+(size/2);
 			y = -1.0f+(size*ratio/2);
 			isusing = false;
+			objectType = BLOCK;
 		}
 
 		Block(float X, float Y, float SIZE, float RATIO) {
@@ -188,7 +193,7 @@ namespace RunGame {
 
 		}
 
-		void Draw() {
+		void Draw() override{
 			glBegin(GL_QUADS);
 			glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
 			glVertex2f(x - (size / 2), y - (size * ratio / 2));
@@ -201,7 +206,7 @@ namespace RunGame {
 			glEnd();
 		}
 
-		void move() {
+		void move() override{
 			if (isusing == true) {
 				x = x + spd;
 				if (x <= -1.0f - (size / 2)) {
@@ -257,16 +262,15 @@ namespace RunGame {
 	private:
 		float spd = -0.01;
 	public:
-		float size;
-		float ratio;
 
 		//-0.8, -0.8, 0.2, 1.0
 
-		Cloud() {
+		Cloud() : object() {
 			x = -0.8f;
 			y = -0.8f;
 			size = 0.2f;
 			ratio = 1.0f;
+			objectType = CLOUD;
 		}
 
 		Cloud(float X, float Y, float SIZE, float RATIO) {
@@ -280,7 +284,7 @@ namespace RunGame {
 
 		}
 
-		void Draw() {
+		void Draw() override{
 			glBegin(GL_QUADS);
 			glColor4f(1.0f, 0.0f, 1.0f, 1.0f);
 			glVertex2f(x - (size / 2), y - (size * ratio / 2));
@@ -293,7 +297,7 @@ namespace RunGame {
 			glEnd();
 		}
 
-		void move() {
+		void move()override {
 			x = x + spd;
 			if (x <= -1.0f-(size/2)) {
 				x = 1.0f+ (size / 2);
@@ -319,16 +323,15 @@ namespace RunGame {
 	private:
 		float spd = -0.001;
 	public:
-		float size;
-		float ratio;
 
 		//-0.8, -0.8, 0.2, 1.0
 
-		Sun() {
+		Sun() : object() {
 			x = -0.8f;
 			y = -0.8f;
 			size = 0.2f;
 			ratio = 1.0f;
+			objectType = SUN;
 		}
 
 		Sun(float X, float Y, float SIZE, float RATIO) {
@@ -342,7 +345,7 @@ namespace RunGame {
 
 		}
 
-		void Draw() {
+		void Draw() override{
 			glBegin(GL_QUADS);
 			glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
 			glVertex2f(x - (size / 2), y - (size * ratio / 2));
@@ -355,7 +358,7 @@ namespace RunGame {
 			glEnd();
 		}
 
-		void move() {
+		void move() override{
 			x = x + spd;
 			if (x <= -1.0f - (size / 2)) {
 				x = 1.0f + (size / 2);

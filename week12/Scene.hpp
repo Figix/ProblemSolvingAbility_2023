@@ -40,10 +40,8 @@ namespace RunGame {
 		bool pressed_GameStart;
 		bool isSTOP;
 		int score;
-		int drawindex;
-		int drawcounter;
 
-		Player *player = new Player();
+		Player* player = new Player();
 		Ground* ground1 = new Ground();
 		Ground* ground2 = new Ground();
 		Cloud* cloud1 = new Cloud();
@@ -51,6 +49,8 @@ namespace RunGame {
 		Cloud* cloud3 = new Cloud();
 		Sun* sun = new Sun();
 		Block* block[3];
+
+		std::vector<RunGame::object*> objects;
 	public:
 		int GameState; // 0:게임 스타트, 1:인 게임, 2:게임 오버
 		SceneManager() {
@@ -63,6 +63,17 @@ namespace RunGame {
 			for (int i = 0; i < 3; i++) {
 				block[i] = new Block();
 			}
+
+			objects.push_back(player);
+			objects.push_back(ground1);
+			objects.push_back(ground2);
+			objects.push_back(sun);
+			objects.push_back(cloud1);
+			objects.push_back(cloud2);
+			objects.push_back(cloud3);
+			objects.push_back(block[0]);
+			objects.push_back(block[1]);
+			objects.push_back(block[2]);
 		}
 
 		void GameStart_init() {
@@ -101,11 +112,10 @@ namespace RunGame {
 			cloud2->set(-0.2, 0.3, 0.44, 1);
 			cloud3->set(0.2, 0.75, 0.2, 1);
 			sun->set(1, 0.65, 0.25, 1);
+
 			for (int i = 0; i < 3; i++) {
 				block[i]->clear();
 			}
-
-			drawindex = 3;
 
 			block[0]->setblock();
 			framecount = 0;
@@ -150,7 +160,10 @@ namespace RunGame {
 				if (framecount % 4 == 3) {
 					player->convertDraw();
 				}
-				ground1->move();
+				for (int i = 1; i < 10; i++) {
+					objects[i]->move();
+				}
+				/*ground1->move();
 				ground2->move();
 				cloud1->move();
 				cloud2->move();
@@ -158,7 +171,7 @@ namespace RunGame {
 				sun->move();
 				block[0]->move();
 				block[1]->move();
-				block[2]->move();
+				block[2]->move();*/
 				player->gravity();
 				for (int i = 0; i < 3; i++) {
 					if (iscollision_AABB(player, block[i])) {
@@ -171,18 +184,9 @@ namespace RunGame {
 
 		}
 		void inGame_Render() {
-			ground1->Draw();
-			ground2->Draw();
-			sun->Draw();
-			cloud1->Draw();
-			cloud2->Draw();
-			cloud3->Draw();
-			for (int i = 0; i < 3; i++) {
-				if (block[i]->isusing) {
-					block[i]->Draw();
-				}
+			for (int i = 1; i < 10; i++) {
+				objects[i]->Draw();
 			}
-
 			player->Draw();
 		}
 
